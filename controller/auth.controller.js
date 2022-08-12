@@ -1,9 +1,13 @@
 const AuthService = require("../services/auth.service");
+const UserRepository = require("../repositories/users.repository");
+const MY_SECRET_KEY = process.env.MY_SECRET_KEY;
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 
 class AuthController {
   authService = new AuthService();
+  userRepository = new UserRepository();
+
   signupSchema = Joi.object({
     userId: Joi.string().min(6).max(12).alphanum().required(),
     nickname: Joi.string().min(6).max(12).alphanum().required(),
@@ -16,6 +20,7 @@ class AuthController {
     password: Joi.string().min(5).max(12).required(),
   });
 
+  // 회원가입 진행
   signUp = async (req, res, next) => {
     try {
       console.log("** --- AuthController.signUp ---");
@@ -75,6 +80,7 @@ class AuthController {
     return res.send("This is Create Account Page");
   };
 
+  // 로그인만 진행할 때,
   login = async (req, res, next) => {
     try {
       console.log("** --- AuthController.login ---");
@@ -114,6 +120,7 @@ class AuthController {
     }
   };
 
+  // 로그인과 동시에 기록된 데이터를 연결하고자 할 때,
   loginWithData = async (req, res, next) => {
     try {
       console.log("** --- AuthController.login ---");
@@ -148,7 +155,9 @@ class AuthController {
         );
 
         if (success) {
-          return res.status(200).json({ message: message });
+          return res
+            .status(200)
+            .json({ message: "로그인이 완료되었으며, " + message });
         } else {
           return res
             .status(400)
@@ -162,6 +171,48 @@ class AuthController {
     } catch (error) {
       const message = `${req.method} ${req.originalUrl} : ${error.message}`;
       res.status(400).send({ message });
+    }
+  };
+
+  authMiddleware = (req, res, next) => {
+    // authMiddleware 메소드 입출입을 확인하기 위한 콘솔로그
+    console.log("------ 🤔 Authorization Checking ------");
+
+    try {
+      const authorization = req.cookies.token;
+      const [authType, authToken] = (authorization || "").split(" ");
+
+      // 전달받은 인증값이 Bearer로 시작하지 않으면 인증 실패
+      if (authType !== "Bearer") {
+        res.status(401).send({
+          errorMessage: "로그인 후 사용해주세요",
+        });
+        return;
+      }
+      jwt.verify(authToken, MY_SECRET_KEY, async (error, decoded) => {
+        // 인증 결과 에러가 나타나면 클라이언트와 서버에 모두 에러를 던지고 미들웨어 종료
+        if (error) {
+          res.status(401).send({
+            errorMessage: "이용에 문제가 있습니다. 관리자에게 문의해주세요.",
+          });
+          return;
+        }
+
+        let user = await this.userRepository.getUserbyId(decoded.userId);
+        console.log("------ ✅  Authorization Checked ------");
+
+        // 다 통과하면 토큰을 복호화하여 user 정보를 다음 미들웨어가 사용할 수 있는 형태로 넘겨준다.
+        res.locals.user = user;
+        next();
+        return;
+      });
+
+      // 에러 생기면 에러메세지
+    } catch (e) {
+      res.status(401).send({
+        errorMessage: "로그인 후 사용하세요",
+      });
+      return;
     }
   };
 }

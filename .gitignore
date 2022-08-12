@@ -1,4 +1,5 @@
 config
+legacy_middlewares
 
 # Logs
 logs

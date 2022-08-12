@@ -11,10 +11,6 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
-// 켜지지 않도록 주의 : sequelize 강제 초기화 하는 기능
-// const { sequelize } = require("./models");
-// sequelize.sync({ force: true });
-
 const http = Http.createServer(app);
 const port = process.env.PORT || 3000;
 
@@ -29,3 +25,7 @@ http.listen(port, () => {
 });
 
 module.exports = http;
+
+// 켜지지 않도록 주의 : sequelize 강제 초기화 하는 기능
+// const { sequelize } = require("./models");
+// sequelize.sync({ force: true });
