@@ -24,7 +24,7 @@ POST http://localhost:8001/api/login/withsave
 Content-Type: application/json
 
 {  
-    "answersId": 1,  
+    "resultId": 1,  
     "userId": "tester1",  
     "password": "12345"
 }

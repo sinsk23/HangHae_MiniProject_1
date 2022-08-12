@@ -11,6 +11,7 @@ class AuthController {
     confirm: Joi.string().min(5).max(12).alphanum().required(),
   });
   loginSchema = Joi.object({
+    resultId: Joi.number().integer(),
     userId: Joi.string().min(6).max(12).alphanum().required(),
     password: Joi.string().min(5).max(12).required(),
   });
@@ -117,7 +118,7 @@ class AuthController {
     try {
       console.log("** --- AuthController.login ---");
       // joi 객체의 스키마를 잘 통과했는지 확인
-      const { answersId, userId, password } =
+      const { resultId, userId, password } =
         await this.loginSchema.validateAsync(req.body);
 
       // 헤더가 인증정보를 가지고 있으면 (로그인 되어 있으면,) 반려
@@ -132,8 +133,6 @@ class AuthController {
         password
       );
 
-      await this.authService.leaveUserIdon(userId, password);
-
       console.log("** --- AuthController.login Returns---");
 
       if (success) {
@@ -141,7 +140,20 @@ class AuthController {
           maxAge: 30000, // 원활한 테스트를 위해 로그인 지속시간을 30초로 두었다.
           httpOnly: true,
         });
-        return res.status(200).end();
+
+        // 결과에 userId 기록
+        const { success, message } = await this.authService.leaveUserOnResult(
+          userId,
+          resultId
+        );
+
+        if (success) {
+          return res.status(200).json({ message: message });
+        } else {
+          return res
+            .status(400)
+            .json({ message: "로그인이 완료되었으나, " + message });
+        }
       } else {
         return res
           .status(400)
@@ -152,14 +164,6 @@ class AuthController {
       res.status(400).send({ message });
     }
   };
-
-  // loginWithData = (req, res, next) => {
-  //   return res.send("This is Create Account Page");
-  // };
-
-  // logout = (req, res, next) => {
-  //   return res.send("This is Create Account Page");
-  // };
 }
 
 module.exports = AuthController;

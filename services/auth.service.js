@@ -1,5 +1,6 @@
 // AuthService에서는 사용자 데이터를 활용하기 때문에 User Repository를 호출한다.
 const UserRepository = require("../repositories/users.repository");
+const ResultRepository = require("../repositories/results.repository");
 const jwt = require("jsonwebtoken");
 const MY_SECRET_KEY = process.env.MY_SECRET_KEY;
 
@@ -7,6 +8,7 @@ const MY_SECRET_KEY = process.env.MY_SECRET_KEY;
 class AuthService {
   // 클래스 안에서 활용할 인스턴스를 확보
   userRepository = new UserRepository();
+  resultRepository = new ResultRepository();
 
   // 검증이 완료된 nickname과 password를 받아, 기존 유저가 없으면
   signUp = async (userId, nickname, password) => {
@@ -52,6 +54,32 @@ class AuthService {
       );
       console.log("**** --- AuthService.getToken Returns ---");
       return { success: true, token: token };
+    }
+  };
+
+  leaveUserOnResult = async (userId, resultId) => {
+    console.log("**** --- AuthService.leaveUserOnResult ---");
+
+    // resultRepository에서 결과데이터를 찾아보고,
+    const result = await this.resultRepository.getResultById(resultId);
+
+    // 찾아봤는데 DB에 그런 result가 없으면 반려
+    if (!result) {
+      console.log("**** --- AuthService.leaveUserOnResult Returns ---");
+      return {
+        success: false,
+        message: "저장할 결과데이터가 없습니다.",
+      };
+
+      // DB에 resultId 핻당하는 데이터결과가 있으면
+    } else {
+      // 로그인 한 userId를 이번 결과데이터에 넣어주고,
+      await this.resultRepository.leaveUserOnResult(userId, resultId);
+
+      return {
+        success: true,
+        message: "결과데이터에 userId를 기록했습니다.",
+      };
     }
   };
 }

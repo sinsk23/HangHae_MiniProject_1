@@ -63,20 +63,6 @@ class UserRepository {
     // 방금 생성한 유저 데이터를 리턴
     return createUserData;
   };
-
-  // // 가입된 User를 요청한 가입일 순서대로 으로 모두 불러옴 (기본값 날짜 내림차순)
-  // getMyResult = async () => {
-  //   console.log("****** --- UserRepository.getAllUsers ---");
-
-  //   // 지금까지 가입된 유저의 정보를 가입된 날짜의 orderBy 순서로 확보하여,
-  //   const myResult = await Result.findOne({
-  //     order: [["createdAt", orderBy]],
-  //   });
-
-  //   // 리턴
-  //   console.log("****** --- UserRepository.getAllUsers Returns ---");
-  //   return myResult;
-  // };
 }
 
 module.exports = UserRepository;
