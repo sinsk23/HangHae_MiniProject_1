@@ -31,6 +31,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
+      resultText: {
+        allowNull: false,
+        type: DataTypes.TEXT,
+      },
       recommendedId: {
         allowNull: false,
         type: Sequelize.STRING,

@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       answersArr: {
         allowNull: false,
         type: DataTypes.JSON,
+        defaultValue: [],
       },
       recommendedCountryId: {
         allowNull: false,

@@ -15,6 +15,7 @@ module.exports = {
       answersArr: {
         allowNull: false,
         type: Sequelize.JSON,
+        defaultValue: [],
       },
       recommendedCountryId: {
         allowNull: false,
