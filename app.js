@@ -11,6 +11,10 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
+// 켜지지 않도록 주의 : sequelize 강제 초기화 하는 기능
+// const { sequelize } = require("./models");
+// sequelize.sync({ force: true });
+
 const http = Http.createServer(app);
 const port = process.env.PORT || 3000;
 
@@ -18,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/", routes);
+app.use("/api", routes);
 
 http.listen(port, () => {
   console.log(`Start listen Server: ${port}`);
