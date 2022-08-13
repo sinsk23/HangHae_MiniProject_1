@@ -1,13 +1,13 @@
 const ResultsService = require("../services/results.service");
 const ResultsRepository = require("../repositories/results.repository");
 
-const CountryinfoService = require("../services/results.service");
+
 const CountryinfoRepository = require("../repositories/countryInfo.repository");
 
 class ResultsController {
   resultsService = new ResultsService();
   resultsRepository = new ResultsRepository();
-  countryinfoService = new CountryinfoService();
+  
   countryinfoRepository = new CountryinfoRepository();
 
   // Controller.submitPage : FE에서 설문 받아서 결과 저장하고, 저장된 resultId 반환
@@ -35,7 +35,7 @@ class ResultsController {
   resultPage = async (req, res, next) => {
     try {
       const { resultId } = req.params;
-      const result = await this.countryinfoService.resultPage(resultId);
+      const result = await this.resultsService.resultPage(resultId);
       return res.status(200).json(result);
     } catch (err) {
       return res.status(400).json({ err: err.message });

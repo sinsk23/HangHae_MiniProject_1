@@ -1,10 +1,10 @@
-const ResultsRepository = require("../repositories/results.repository");
-const CountryInfoRepository = require("../repositories/countryInfo.repository");
+// const ResultsRepository = require("../repositories/results.repository");
+// const CountryInfoRepository = require("../repositories/countryInfo.repository");
 
-class MypageService{
-    resultsRepository = new ResultsRepository();
+// class MypageService{
+//     resultsRepository = new ResultsRepository();
     
-    countryinfoRepository = new CountryInfoRepository();
+//     countryinfoRepository = new CountryInfoRepository();
     
 
 
@@ -13,27 +13,27 @@ class MypageService{
 
 
 
-    bringMyinfo = async(resultId) =>{
+//     bringMyinfo = async(resultId) =>{
         
-        const { recommendedCountryId } = await this.resultsRepository.getResultById(
-            resultId
-          );
+//         const { recommendedCountryId } = await this.resultsRepository.getResultById(
+//             resultId
+//           );
       
-          const countryInfo = await this.countryinfoRepository.findOneCounty(
-            recommendedCountryId
-          );
+//           const countryInfo = await this.countryinfoRepository.findOneCounty(
+//             recommendedCountryId
+//           );
       
-          console.log(recommendedCountryId, countryInfo);
+//           console.log(recommendedCountryId, countryInfo);
       
-          const returnData = {
-            recommendedCountryId,
-            countryInfo,
-          };
+//           const returnData = {
+//             recommendedCountryId,
+//             countryInfo,
+//           };
       
-          return returnData;
-        };
-}
+//           return returnData;
+//         };
+// }
 
 
 
-module.exports = MypageService
+// module.exports = MypageService
