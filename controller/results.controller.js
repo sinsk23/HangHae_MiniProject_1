@@ -16,7 +16,7 @@ class ResultsController {
       // 설문결과 어레이를 받아서
       const { answersArr } = req.body;
 
-      console.log(answersArr);
+      // console.log(answersArr);
       // 서비스에 전달해 만들어진 Id를 전달받음
       const { resultId } = await this.resultsService.submitPage(answersArr);
 
@@ -28,9 +28,15 @@ class ResultsController {
 
   // 결과 데이터 GET , api/results/:resultId
   resultPage = async (req, res, next) => {
+    try {
     const { resultId } = req.params;
     const result = await this.countryinfoService.resultPage(resultId);
     return res.status(200).json(result);
+
+    }catch (err) {
+      return res.status(400).json({ err: err.message });
+    }
+
   };
 }
 
