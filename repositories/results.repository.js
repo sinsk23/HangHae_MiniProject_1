@@ -28,16 +28,14 @@ class ResultsRepository {
     return updatedResult; // 완성된 result데이터 반환
   };
 
-  createData = async(answersArr) =>{
-    console.log("****** --- ResultsRepository.createAnswersArr Returns ---");
-    
+  createData = async (answersArr, recommendedCountryId) => {
     const resultArr = await Result.create({
       answersArr,
+      recommendedCountryId,
     });
 
     return resultArr;
-  }
-  
+  };
 }
 
 module.exports = ResultsRepository;

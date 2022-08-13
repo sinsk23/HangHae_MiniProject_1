@@ -16,8 +16,9 @@ class ResultsController {
       // 설문결과 어레이를 받아서
       const { answersArr } = req.body;
 
+      console.log(answersArr);
       // 서비스에 전달해 만들어진 Id를 전달받음
-      const resultId = await this.resultsService.submitPage(answersArr);
+      const { resultId } = await this.resultsService.submitPage(answersArr);
 
       return res.status(201).json({ resultId });
     } catch (err) {

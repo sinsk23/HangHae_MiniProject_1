@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       userIdNo: {
-        allowNull: false,
         type: DataTypes.INTEGER,
       },
       answersArr: {

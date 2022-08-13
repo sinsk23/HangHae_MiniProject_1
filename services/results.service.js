@@ -44,7 +44,7 @@ class ResultsService {
     // answersArr 어떤 함수에 집어 넣으면, recommendedCountryId가 나옴
     const recommendedCountryId = this.recommendationFn(answersArr);
 
-    const resultId = await this.resultsRepository.createData(
+    const { resultId } = await this.resultsRepository.createData(
       answersArr,
       recommendedCountryId
     );
@@ -55,9 +55,23 @@ class ResultsService {
   //설문 결과
   resultPage = async (resultId) => {
     console.log(resultId, "결과 아이디");
-    const detail = await this.countryinfoRepository.findAllresult(resultId);
-    console.log(detail, "전체 결과 ");
-    return detail;
+
+    const { recommendedCountryId } = await this.resultsRepository.getResultById(
+      resultId
+    );
+
+    const countryInfo = await this.countryinfoRepository.findOneCounty(
+      recommendedCountryId
+    );
+
+    console.log(recommendedCountryId, countryInfo);
+
+    const returnData = {
+      recommendedCountryId,
+      countryInfo,
+    };
+
+    return returnData;
   };
 }
 
