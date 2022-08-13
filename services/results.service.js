@@ -40,16 +40,28 @@ class ResultsService {
 
   // Service.submitPage 설문 결과 Arr를 받아, 정보를 만들어내고,
   // resultDB에 저장하고, 저장한 resultId반환
-  submitPage = async (answersArr) => {
+  submitPage = async (answersArr, user) => {
     // answersArr 어떤 함수에 집어 넣으면, recommendedCountryId가 나옴
     const recommendedCountryId = this.recommendationFn(answersArr);
 
-    const { resultId } = await this.resultsRepository.createData(
-      answersArr,
-      recommendedCountryId
-    );
+    let resultId = null; // 스코프 문제로 밖으로 빼둠
+    if (user !== null) {
+      const temp = await this.resultsRepository.createData(
+        answersArr,
+        recommendedCountryId,
+        user._id
+      );
 
-    return { resultId };
+      resultId = temp;
+    } else {
+      const temp = await this.resultsRepository.createData(
+        answersArr,
+        recommendedCountryId
+      );
+      resultId = temp;
+    }
+
+    return resultId;
   };
 
   //설문 결과

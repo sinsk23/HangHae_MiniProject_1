@@ -200,7 +200,7 @@ class AuthController {
           return;
         }
 
-        let user = await this.userRepository.getUserbyId(decoded.userId);
+        let user = await this.userRepository.getUserbyUserId(decoded.userId);
         console.log("------ ✅  Authorization Checked ------");
 
         // 다 통과하면 토큰을 복호화하여 user 정보를 다음 미들웨어가 사용할 수 있는 형태로 넘겨준다.
@@ -223,6 +223,7 @@ class AuthController {
     // authMiddleware 메소드 입출입을 확인하기 위한 콘솔로그
     console.log("------ 🤔 Authorization Checking ------");
 
+    console.log(req.cookies.token);
     try {
       const authorization = req.cookies.token;
       const [authType, authToken] = (authorization || "").split(" ");
@@ -244,9 +245,8 @@ class AuthController {
           return;
         }
 
-        let user = await this.userRepository.getUserbyId(decoded.userId);
+        let user = await this.userRepository.getUserbyUserId(decoded.userId);
         console.log("------ ✅  Authorization Checked ------");
-
         // 다 통과하면 토큰을 복호화하여 user 정보를 다음 미들웨어가 사용할 수 있는 형태로 넘겨준다.
         res.locals.user = user;
         next();
