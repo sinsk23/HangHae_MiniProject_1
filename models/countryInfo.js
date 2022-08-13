@@ -42,8 +42,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      recommendedId: {
+      resultText: {
         allowNull: false,
+        type: DataTypes.TEXT,
+      },
+      recommendedId: {
         type: DataTypes.STRING,
       },
       resultImageUrl: {

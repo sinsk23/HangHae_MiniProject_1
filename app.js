@@ -20,12 +20,12 @@ app.use(cookieParser());
 
 app.use("/api", routes);
 
+// 켜지지 않도록 주의 : sequelize 강제 초기화 하는 기능
+// const { sequelize } = require("./models");
+// sequelize.sync({ force: true });
+
 http.listen(port, () => {
   console.log(`Start listen Server: ${port}`);
 });
 
 module.exports = http;
-
-// 켜지지 않도록 주의 : sequelize 강제 초기화 하는 기능
-// const { sequelize } = require("./models");
-// sequelize.sync({ force: true });

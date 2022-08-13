@@ -10,7 +10,7 @@ class ResultsController {
   countryinfoService = new CountryinfoService();
   countryinfoRepository = new CountryinfoRepository();
 
-  // Controller.submitPage FE에서 설문 받아서 결과 저장하고, 저장된 resultId 반환
+  // Controller.submitPage : FE에서 설문 받아서 결과 저장하고, 저장된 resultId 반환
   submitPage = async (req, res, next) => {
     try {
       // 설문결과 어레이를 받아서

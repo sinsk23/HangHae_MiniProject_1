@@ -32,7 +32,6 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       resultText: {
-        allowNull: false,
         type: DataTypes.TEXT,
       },
       recommendedId: {
