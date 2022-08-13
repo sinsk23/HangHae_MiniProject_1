@@ -1,12 +1,14 @@
 const express = require("express");
-// const ResultsRouter = require("./results.route");
-// const MypageRouter = require("./mypage.route");
 const AuthRouter = require("./auth.routes");
+const ResultsRouter = require("./results.routes");
+// const MypageRouter = require("./mypage.route");
+
 
 const router = express.Router();
 
-// router.use("/results", ResultsRouter);
-// router.use("/mypage", MypageRouter);
 router.use("/", AuthRouter);
+router.use("/results", ResultsRouter);
+// router.use("/mypage", MypageRouter);
+
 
 module.exports = router;

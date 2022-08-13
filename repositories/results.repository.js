@@ -27,6 +27,17 @@ class ResultsRepository {
     console.log("****** --- ResultsRepository.getUserbyUserId Returns ---");
     return updatedResult; // 완성된 result데이터 반환
   };
+
+  createData = async(answersArr) =>{
+    console.log("****** --- ResultsRepository.createAnswersArr Returns ---");
+    
+    const resultArr = await Result.create({
+      answersArr,
+    });
+
+    return resultArr;
+  }
+  
 }
 
 module.exports = ResultsRepository;
