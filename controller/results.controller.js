@@ -28,8 +28,8 @@ class ResultsController {
   // 결과 데이터 GET , api/results/:resultId
   resultPage = async (req, res, next) => {
     const { resultId } = req.params;
-    const data = await this.countryinfoService.resultPage(resultId);
-    return res.status(200).json(data);
+    const result = await this.countryinfoService.resultPage(resultId);
+    return res.status(200).json(result);
   };
 }
 

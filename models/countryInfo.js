@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   CountryInfo.init(
-    {
+    { 
       countryCode: {
         allowNull: false,
         primaryKey: true,
