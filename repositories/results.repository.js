@@ -28,10 +28,11 @@ class ResultsRepository {
     return updatedResult; // 완성된 result데이터 반환
   };
 
-  createData = async (answersArr, recommendedCountryId) => {
+  createData = async (answersArr, recommendedCountryId, userIdNo = null) => {
     const resultArr = await Result.create({
       answersArr,
       recommendedCountryId,
+      userIdNo: userIdNo,
     });
 
     return resultArr;
