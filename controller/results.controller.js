@@ -14,6 +14,7 @@ class ResultsController {
   submitPage = async (req, res, next) => {
     try {
       // 설문결과 어레이를 받아서
+
       const { answersArr } = req.body;
 
       console.log(answersArr);
