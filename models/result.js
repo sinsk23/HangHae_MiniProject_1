@@ -20,16 +20,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       userIdNo: {
-        allowNull: true,
+        allowNull: false,
         type: DataTypes.INTEGER,
       },
       answersArr: {
         allowNull: false,
-        type: DataTypes.INTEGER, //JSON
-        // defaultValue: [],
+        type: DataTypes.JSON, //INTEGER
+        defaultValue: [],
       },
       recommendedCountryId: {
-        allowNull: true,//false
+        allowNull: false,
         type: DataTypes.INTEGER,
       },
     },
