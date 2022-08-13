@@ -23,16 +23,19 @@ class MypageController {
 
 
 
-
-
-
-
-
-
   
 
-//   bringMyinfo = async(req, res, next) =>{
-//   }
+  bringMyinfo = async(req, res, next) =>{
+    console.log(res.locals,"@@@@@@@@@@@@@@@@@@@@@@!11111111111")
+    const {resultId} = res.locals;
+    try{
+        console.log(resultId,"@@@@@@@@@@@@@@@@@")
+    const result = await this.mypageService.bringMyinfo(resultId)
+    return res.status(200).json(result);
+    }catch(err){
+        return res.status(400).json({ err: err.message });
+    }
+  }
 }
 
 module.exports = MypageController;
