@@ -43,7 +43,7 @@ class AuthService {
       console.log("**** --- AuthService.getToken Returns ---");
       return {
         success: false,
-        message: "닉네임 또는 패스워드를 확인해주세요.",
+        message: "아이디 또는 패스워드를 확인해주세요.",
       };
 
       // DB에 그런 user가 있으면 userId를 payload에 담은 토큰에 서명,발행하여 리턴

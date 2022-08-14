@@ -105,7 +105,7 @@ class AuthController {
 
       if (success) {
         res.cookie("token", `Bearer ${token}`, {
-          maxAge: 30000, // 원활한 테스트를 위해 로그인 지속시간을 30초로 두었다.
+          maxAge: 60000, // 원활한 테스트를 위해 로그인 지속시간을 60초로 두었다.
           httpOnly: true,
         });
         return res.status(200).send({
