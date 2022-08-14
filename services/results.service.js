@@ -1,7 +1,6 @@
 const ResultsRepository = require("../repositories/results.repository");
 const CountryInfoRepository = require("../repositories/countryInfo.repository");
 const axios = require("axios");
-const request = require("request-promise-native");
 
 class ResultsService {
   resultsRepository = new ResultsRepository();
@@ -96,7 +95,7 @@ class ResultsService {
 
     // user 정보가 없으면 userIdNo는 빼고 create
     if (user !== null) {
-      const temp = await this.resultsRepository.createData(
+      const temp = await this.resultsRepository.createResult(
         answersArr,
         recommendedCountryId,
         user._id
@@ -104,7 +103,7 @@ class ResultsService {
 
       resultId = temp;
     } else {
-      const temp = await this.resultsRepository.createData(
+      const temp = await this.resultsRepository.createResult(
         answersArr,
         recommendedCountryId
       );
