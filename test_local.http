@@ -62,6 +62,21 @@ Content-Type: application/json
 
 
 
+#############------ mypage 관련 API ----------------
+
+
+### 마이페이지에 넣을 나의 정보(아직은 userId, nickname 정도를 받아 응답하는 기능
+GET http://localhost:8001/api/mypage
+Content-Type: application/json
+
+### 마이페이지에 넣을 나의 저장된 결과지 result 받아서 반환
+GET http://localhost:8001/api/mypage/myanswers
+Content-Type: application/json
+
+
+
+
+
 #############--------- Temporary countryInfo Uploader -------------
 
 ### countryInfo 저장하는 임시 링크 

@@ -14,12 +14,31 @@ class MypageController {
   ResultsService = new ResultsService();
   countryinfoRepository = new CountryinfoRepository();
 
-  // bringMypage = async(req, res, next) =>{
-  // }
+  // 마이페이지에 넣을 나의 정보(아직은 userId, nickname 정도를 받아 응답하는 기능
+  bringMypage = async (req, res, next) => {
+    try {
+      console.log(res.locals.user);
+      const { userId, nickname } = res.locals.user;
 
+      const result = { userId, nickname };
+
+      return res.status(200).json(result);
+    } catch (err) {
+      return res.status(400).json({ err: err.message });
+    }
+  };
+
+  // 마이페이지에 넣을 나의 저장된 결과지 result 받아서 반환
   bringMyinfo = async (req, res, next) => {
     try {
-      const result = await this.ResultsService.resultPage();
+      const { _id } = res.locals.user;
+      console.log(_id);
+
+      const { resultId } = await this.resultsRepository.getResultByUserIdNo(
+        _id
+      );
+
+      const result = await this.ResultsService.resultPage(resultId);
       return res.status(200).json(result);
     } catch (err) {
       return res.status(400).json({ err: err.message });

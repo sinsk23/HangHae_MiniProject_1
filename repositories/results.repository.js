@@ -12,6 +12,11 @@ class ResultsRepository {
     return result;
   };
 
+  getResultByUserIdNo = async (userIdNo) => {
+    const result = await Result.findOne({ where: { userIdNo } });
+    return result;
+  };
+
   // 특정 result 데이터에 userId 값을 채워 준다.
   leaveUserOnResult = async (userId, resultId) => {
     console.log("****** --- ResultsRepository.leaveUserOnResult ---");

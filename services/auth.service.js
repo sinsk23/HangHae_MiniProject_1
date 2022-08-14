@@ -49,7 +49,11 @@ class AuthService {
       // DB에 그런 user가 있으면 userId를 payload에 담은 토큰에 서명,발행하여 리턴
     } else {
       const token = jwt.sign(
-        { userId: user.userId, nickname: user.nickname },
+        {
+          userId: user.userId,
+          nickname: user.nickname,
+          userIdNo: user._id,
+        },
         MY_SECRET_KEY
       );
       console.log("**** --- AuthService.getToken Returns ---");
