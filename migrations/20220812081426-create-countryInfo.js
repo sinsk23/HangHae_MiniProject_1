@@ -2,9 +2,13 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("CountryInfo", {
-      countryCode: {
+      recommendedId: {
         allowNull: false,
         primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      countryCode: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       countryName: {
@@ -15,28 +19,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      canVisit: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
-      },
-      visitInfo: {
-        allowNull: true,
-        type: Sequelize.STRING,
-      },
       continent: {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      capitalCity: {
+      headText: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.TEXT,
       },
-      resultText: {
-        type: DataTypes.TEXT,
-      },
-      recommendedId: {
+      detailText: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       resultImageUrl: {
         allowNull: false,
@@ -46,8 +39,12 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      getMoreDetail: {
-        allowNull: false,
+      getMoreCountryInfoUrl: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      getMoreVisitInfoUrl: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       createdAt: {

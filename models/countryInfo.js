@@ -13,9 +13,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   CountryInfo.init(
     {
-      countryCode: {
+      recommendedId: {
         allowNull: false,
         primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      countryCode: {
+        allowNull: false,
         type: DataTypes.STRING,
       },
       countryName: {
@@ -26,28 +30,17 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      canVisit: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-      },
-      visitInfo: {
-        allowNull: true,
-        type: DataTypes.STRING,
-      },
       continent: {
         allowNull: true,
         type: DataTypes.STRING,
       },
-      capitalCity: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-      },
-      resultText: {
+      headText: {
         allowNull: false,
         type: DataTypes.TEXT,
       },
-      recommendedId: {
-        type: DataTypes.STRING,
+      detailText: {
+        allowNull: false,
+        type: DataTypes.TEXT,
       },
       resultImageUrl: {
         allowNull: false,
@@ -57,8 +50,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.STRING,
       },
-      getMoreDetail: {
-        allowNull: false,
+      getMoreCountryInfoUrl: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
+      getMoreVisitInfoUrl: {
+        allowNull: true,
         type: DataTypes.STRING,
       },
     },

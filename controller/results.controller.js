@@ -1,13 +1,12 @@
 const ResultsService = require("../services/results.service");
 const ResultsRepository = require("../repositories/results.repository");
 
-
 const CountryinfoRepository = require("../repositories/countryInfo.repository");
 
 class ResultsController {
   resultsService = new ResultsService();
   resultsRepository = new ResultsRepository();
-  
+
   countryinfoRepository = new CountryinfoRepository();
 
   // Controller.submitPage : FE에서 설문 받아서 결과 저장하고, 저장된 resultId 반환

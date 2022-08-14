@@ -15,33 +15,64 @@ class CountryInfoRepository {
       countryCode,
       countryName,
       countryDomain,
-      canVisit,
-      visitInfo,
       continent,
-      capitalCity,
-      resultText,
+      headText,
+      detailText,
       recommendedId,
       resultImageUrl,
       officialWebpage,
-      getMoreDetail,
+      getMoreCountryInfoUrl,
+      getMoreVisitInfoUrl,
     } = req.body;
 
     const allresult = await CountryInfo.create({
       countryCode,
       countryName,
       countryDomain,
-      canVisit,
-      visitInfo,
       continent,
-      capitalCity,
-      resultText,
+      headText,
+      detailText,
       recommendedId,
       resultImageUrl,
       officialWebpage,
-      getMoreDetail,
+      getMoreCountryInfoUrl,
+      getMoreVisitInfoUrl,
     });
 
     return res.status(200).send(allresult);
+  };
+
+  // app에서 바로 넣기
+  createCountryInfoDirectFn = async (obj) => {
+    const {
+      countryCode,
+      countryName,
+      countryDomain,
+      continent,
+      headText,
+      detailText,
+      recommendedId,
+      resultImageUrl,
+      officialWebpage,
+      getMoreCountryInfoUrl,
+      getMoreVisitInfoUrl,
+    } = obj;
+
+    const allresult = await CountryInfo.create({
+      countryCode,
+      countryName,
+      countryDomain,
+      continent,
+      headText,
+      detailText,
+      recommendedId,
+      resultImageUrl,
+      officialWebpage,
+      getMoreCountryInfoUrl,
+      getMoreVisitInfoUrl,
+    });
+
+    return allresult;
   };
 }
 
