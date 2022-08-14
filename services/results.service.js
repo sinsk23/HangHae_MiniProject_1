@@ -126,19 +126,17 @@ class ResultsService {
       recommendedCountryId
     );
 
-    console.log("axios start ");
-    // ID로 사용자 요청
     const getMoreCountryInfoUrl = await axios.get(
       countryInfo.getMoreCountryInfoUrl
     );
 
     const returnData = {
+      resultId,
       recommendedCountryId,
       countryInfo,
       flag: getMoreCountryInfoUrl.data[0].flag,
       capital: getMoreCountryInfoUrl.data[0].capital[0],
       flagImgUrl: getMoreCountryInfoUrl.data[0].flags.png,
-      // getMoreCountryInfoUrl: countryInfo.getMoreCountryInfoUrl,
       // getMoreVisitInfoUrl: countryInfo.getMoreVisitInfoUrl,
     };
 

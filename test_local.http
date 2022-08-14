@@ -57,7 +57,7 @@ GET http://localhost:8001/api/results/3
 Content-Type: application/json
 
 ### 저장된 DB 번호 가지고 - 전체 데이터 GET
-GET http://nodeapi.myspaceti.me:8002/api/results/2
+GET http://nodeapi.myspaceti.me:8002/api/results/3
 Content-Type: application/json
 
 
