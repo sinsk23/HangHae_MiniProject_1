@@ -12,32 +12,39 @@ class MypageController {
   resultsService = new ResultsService();
   countryinfoRepository = new CountryinfoRepository();
 
-  // bringMypage = async(req, res, next) =>{
-  // }
+  // 마이페이지에 넣을 나의 정보(아직은 userId, nickname 정도를 받아 응답하는 기능
+  bringMypage = async (req, res, next) => {
+    try {
+      const { userId, nickname } = res.locals.user;
+      const result = { userId, nickname };
+    }
+    catch{}
+  }
+  
+  
+  
+  
+  
+  
 
-  
-  
-  
-  
-  
+  // 마이페이지에 넣을 나의 저장된 결과지 result 받아서 반환
   bringMyinfo = async (req, res, next) => {
     try {
-      //1. UserIdNo 가져오기
-      
-      const result1 = await this.resultsRepository.getResultByUserIdNo(userIdNo);
-      console.log(result1)
-      //2. UserIdNo resultpage로 보내고
-      //3. 각 저장소에서 2가지 정보 , findOneCountry,getresultById 가져오기
-      const result2 = await this.resultsService.resultPage(result1)
-      console.log(result2)
-      
-      
-      
-      return res.status(200).json(result2);
+      const { _id } = await res.locals.user;
+      const myResult = await this.resultsRepository.getResultByUserIdNo(_id);
+
+      if (myResult) {
+        const result = await this.ResultsService.resultPage(myResult.resultId);
+        return res.status(200).json(result);
+      } else {
+        return res.status(400).json({ message: "설문을 먼저 진행해주세요." });
+      }
+
     } catch (err) {
       return res.status(400).json({ err: err.message });
     }
   };
 }
+
 
 module.exports = MypageController;

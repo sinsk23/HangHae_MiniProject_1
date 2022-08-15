@@ -23,8 +23,6 @@ class AuthController {
   // 회원가입 진행
   signUp = async (req, res, next) => {
     try {
-      console.log("** --- AuthController.signUp ---");
-
       // joi 객체의 스키마를 잘 통과했는지 확인
       const { userId, nickname, password, confirm } =
         await this.signupSchema.validateAsync(req.body);
@@ -64,7 +62,6 @@ class AuthController {
         password
       );
 
-      console.log("** --- AuthController.signUp Returns---");
       if (success) {
         return res.status(200).json({ message });
       } else {
@@ -83,7 +80,6 @@ class AuthController {
   // 로그인만 진행할 때,
   login = async (req, res, next) => {
     try {
-      console.log("** --- AuthController.login ---");
       // joi 객체의 스키마를 잘 통과했는지 확인
       const { userId, password } = await this.loginSchema.validateAsync(
         req.body
@@ -100,8 +96,6 @@ class AuthController {
         userId,
         password
       );
-
-      console.log("** --- AuthController.login Returns---");
 
       if (success) {
         res.cookie("token", `Bearer ${token}`, {
@@ -125,7 +119,6 @@ class AuthController {
   // 로그인과 동시에 기록된 데이터를 연결하고자 할 때,
   loginWithData = async (req, res, next) => {
     try {
-      console.log("** --- AuthController.login ---");
       // joi 객체의 스키마를 잘 통과했는지 확인
       const { resultId, userId, password } =
         await this.loginSchema.validateAsync(req.body);
@@ -141,8 +134,6 @@ class AuthController {
         userId,
         password
       );
-
-      console.log("** --- AuthController.login Returns---");
 
       if (success) {
         res.cookie("token", `Bearer ${token}`, {
@@ -176,6 +167,7 @@ class AuthController {
     }
   };
 
+  // 로그인이 되어 있어야 거칠 수 있음 : 로그인 된 경우 res.locals에 user 페이로드 저장
   authMiddleware = (req, res, next) => {
     // authMiddleware 메소드 입출입을 확인하기 위한 콘솔로그
     console.log("------ 🤔 Authorization Checking ------");
@@ -218,7 +210,7 @@ class AuthController {
     }
   };
 
-  // 로그인 되어 있건 안 되었건 분기하여 next() 호출
+  // 로그인 되어 있건 안 되었건 분기시키는 역할 - next() 호출
   authMiddlewareCases = (req, res, next) => {
     // authMiddleware 메소드 입출입을 확인하기 위한 콘솔로그
     console.log("------ 🤔 Authorization Checking ------");
@@ -230,7 +222,7 @@ class AuthController {
 
       // 전달받은 인증값이 Bearer로 시작하지 않으면 인증 실패
       if (authType !== "Bearer") {
-        console.log("------  ❌ Not Logged in ------");
+        console.log("------  ❌ Not Logged in 로그인 없이 next 진행 ------");
         res.locals.user = null;
         next();
         return;

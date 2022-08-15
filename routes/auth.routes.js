@@ -12,7 +12,6 @@ const { swaggerUi, specs } = require("../modules/swagger.js");
 router.post("/signUp", authController.signUp);
 router.post("/login", authController.login);
 router.post("/login/withsave", authController.loginWithData);
-// router.get("/logout", authController.logout);
 
 // '/api' 이 경로 주소에 곧장 swagger 페이지 사용
 router.use("/", swaggerUi.serve, swaggerUi.setup(specs));

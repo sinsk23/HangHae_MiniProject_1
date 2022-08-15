@@ -6,16 +6,20 @@ const { User } = require("../models");
 class ResultsRepository {
   // 특정 result 데이터의 결과정보를 불러온다.
   getResultById = async (resultId) => {
-    console.log("****** --- ResultsRepository.getResultById ---");
     const result = await Result.findOne({ where: { resultId } });
-    console.log("****** --- ResultsRepository.getResultById Returns ---");
+    return result;
+  };
+
+  getResultByUserIdNo = async (userIdNo) => {
+    const result = await Result.findOne({
+      where: { userIdNo },
+      order: [["createdAt", "DESC"]],
+    });
     return result;
   };
 
   // 특정 result 데이터에 userId 값을 채워 준다.
   leaveUserOnResult = async (userId, resultId) => {
-    console.log("****** --- ResultsRepository.leaveUserOnResult ---");
-
     // userId의 _id 를 찾아서,
     const { _id } = await User.findOne({ where: { userId } });
 
@@ -24,11 +28,10 @@ class ResultsRepository {
       { userIdNo: _id },
       { where: { resultId } }
     );
-    console.log("****** --- ResultsRepository.getUserbyUserId Returns ---");
     return updatedResult; // 완성된 result데이터 반환
   };
 
-  createData = async (answersArr, recommendedCountryId, userIdNo = null) => {
+  createResult = async (answersArr, recommendedCountryId, userIdNo = null) => {
     const resultArr = await Result.create({
       answersArr,
       recommendedCountryId,
