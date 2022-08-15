@@ -21,7 +21,7 @@ router.get("/countries", resultsController.getAllCountries);
 // 결과지ID에 따른 각종 데이터 획득
 router.get("/:resultId", resultsController.resultPage);
 
-// 전체 결과 페이지
+// 전체 결과 페이지 //limit 15
 router.get("/", resultsController.getAllResults);
 
 module.exports = router;

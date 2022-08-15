@@ -8,7 +8,7 @@ class ResultsController {
   resultsRepository = new ResultsRepository();
 
   countryinfoRepository = new CountryinfoRepository();
-  //전체 결과 페이지 ,api/results/
+  //전체 결과 페이지  ,api/results/countries
   getAllCountries = async (req, res, next) => {
     try {
       const resultAll = await this.resultsService.getAllCountries();
@@ -20,7 +20,7 @@ class ResultsController {
       return res.status(400).json({ err: err.message });
     }
   };
-
+  // limit 15 api/results
   getAllResults = async (req, res, next) => {
     try {
       // 지금까지 쌓여 있는 수 (최대 100개 불러옴 )
