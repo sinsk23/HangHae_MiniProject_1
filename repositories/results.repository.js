@@ -41,14 +41,6 @@ class ResultsRepository {
     return resultArr;
   };
 
-  getResultByUserIdNo = async (userIdNo)=>{
-    console.log(userIdNo);
-    const getUserIdNo = await Result.findOne({where : {userIdNo}})
-    console.log(getUserIdNo,"@@@@@@@@@@")
-    console.log("****** --- ResultsRepository.getResultByUserIdNo Returns ---");
-    return getUserIdNo
-
-  }
 
 }
 
