@@ -42,9 +42,19 @@ Content-Type: application/json
   ["자연", "저가", "북미", "쇼핑", "휴양"]
 }
 
-
-### 저장된 DB 번호 가지고 - 전체 데이터 GET
+### 저장된 결과 Id 가지고 - 나라정보 불러오기 
 GET http://localhost:8001/api/results/12
+Content-Type: application/json
+
+
+### -------Additional 
+
+### 저장된 모든 결과데이터 불러오기 (최대 15개)
+GET http://localhost:8001/api/results
+Content-Type: application/json
+
+### 저장된 모든 나라 정보 불러오기
+GET http://localhost:8001/api/results/countries
 Content-Type: application/json
 
 

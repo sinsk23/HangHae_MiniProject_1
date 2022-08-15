@@ -2,17 +2,11 @@ const { CountryInfo } = require("../models");
 
 class CountryInfoRepository {
   //결과 페이지 여행자정보 전체 받기
-  findAllCountry = async ()=>{
+  findAllCountry = async () => {
+    const results = await CountryInfo.findAll();
 
-    
-    const result = await CountryInfo.findAll() 
-    
-    return result;
-    
+    return results;
   };
-
-
-
 
   //결과 페이지 여행지정보 받기
   findOneCounty = async (recommendedCountryId) => {

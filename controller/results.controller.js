@@ -8,22 +8,38 @@ class ResultsController {
   resultsRepository = new ResultsRepository();
 
   countryinfoRepository = new CountryinfoRepository();
-//전체 결과 페이지 ,api/results/
-  resultAllPage = async (req, res, next)=>{
-    try{
-      
-      const resultAll = await this.resultsService.resultAllPage();
+  //전체 결과 페이지 ,api/results/
+  getAllCountries = async (req, res, next) => {
+    try {
+      const resultAll = await this.resultsService.getAllCountries();
       return res.status(200).json(resultAll);
-      
+
       // const result = await CountryInfo.findAll({});
       // return res.status(200).json(result);
-    }
-    catch (err) {
+    } catch (err) {
       return res.status(400).json({ err: err.message });
     }
-  }
+  };
 
+  getAllResults = async (req, res, next) => {
+    try {
+      // 지금까지 쌓여 있는 수 (최대 100개 불러옴 )
+      const results = await this.resultsRepository.getAllResults();
+      console.log(results);
 
+      const data = [];
+      for (let i = 0; i < results.length; i++) {
+        const result = await this.resultsService.resultPage(
+          results[i].resultId
+        );
+        data.push(result);
+      }
+
+      return res.status(200).json(data);
+    } catch (err) {
+      return res.status(400).json({ err: err.message });
+    }
+  };
 
   // Controller.submitPage : FE에서 설문 받아서 결과 저장하고, 저장된 resultId 반환
   submitPage = async (req, res, next) => {

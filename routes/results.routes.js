@@ -8,21 +8,21 @@ const authController = new AuthController();
 
 const router = express.Router();
 
-//전체 결과 페이지
-router.get("/", resultsController.resultAllPage);
-
-
-// FE단에서 /submit answersArr 데이터 받고 데이터를 :reultId로 보내 받기
-
-//설문페이지
+// 설문페이지 결과 제출 : 결과지 ID(resultID)리턴
 router.post(
   "/submit",
   authController.authMiddlewareCases,
   resultsController.submitPage
 );
 
-//결과페이지
+// 등록된 모든 나라정보 가져오기
+router.get("/countries", resultsController.getAllCountries);
+
+// 결과지ID에 따른 각종 데이터 획득
 router.get("/:resultId", resultsController.resultPage);
+
+// 전체 결과 페이지
+router.get("/", resultsController.getAllResults);
 
 module.exports = router;
 

@@ -4,7 +4,6 @@ const axios = require("axios");
 
 class ResultsService {
   resultsRepository = new ResultsRepository();
-
   countryinfoRepository = new CountryInfoRepository();
 
   // 추천 알고리즘 - 우선 1~18사이 난수 반환
@@ -115,8 +114,6 @@ class ResultsService {
 
   //설문 결과
   resultPage = async (resultId) => {
-    console.log(resultId, "결과 아이디");
-
     const { recommendedCountryId } = await this.resultsRepository.getResultById(
       resultId
     );
@@ -142,19 +139,26 @@ class ResultsService {
     return returnData;
   };
 
-  //전체 설문 결과 
-  resultAllPage = async()=>{
-    
+  //전체 나라 리스트 반환
+  getAllCountries = async () => {
     const allPage = await this.countryinfoRepository.findAllCountry();
-    return allPage.map((page)=>{
-      return {...page};
-    });
-    
-    
-    
-  }
-  
+    return allPage;
 
+    // allPage
+    //   .map(async (page) => {
+    //     const getMoreCountryInfo = await axios.get(page.getMoreCountryInfoUrl);
+    //     const add = {
+    //       flag: await getMoreCountryInfo.data[0].flag,
+    //       capital: await getMoreCountryInfo.data[0].capital[0],
+    //       flagImgUrl: await getMoreCountryInfo.data[0].flags.png,
+    //     };
+    //     return { ...page, ...add };
+    //   })
+    //   .then((e) => {
+    //     console.log(e);
+    //     return e;
+    //   });
+  };
 }
 
 module.exports = ResultsService;

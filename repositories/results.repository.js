@@ -9,6 +9,10 @@ class ResultsRepository {
     const result = await Result.findOne({ where: { resultId } });
     return result;
   };
+  getAllResults = async () => {
+    const result = await Result.findAll({ limit: 15 });
+    return result;
+  };
 
   getResultByUserIdNo = async (userIdNo) => {
     const result = await Result.findOne({
@@ -40,8 +44,6 @@ class ResultsRepository {
 
     return resultArr;
   };
-
-
 }
 
 module.exports = ResultsRepository;
