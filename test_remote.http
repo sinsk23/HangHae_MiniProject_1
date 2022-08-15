@@ -17,7 +17,7 @@ POST http://nodeapi.myspaceti.me:8002/api/login
 Content-Type: application/json
 
 {  
-    "userId": "tester2",  
+    "userId": "tester1",  
     "password": "12345"
 }
 
@@ -40,7 +40,7 @@ Content-Type: application/json
 
 { 
   "answersArr" :   
-  ["도시", "저가", "유럽", "음식", "휴양"]
+  ["자연", "고가", "북미", "음식", "모험"]
 }
 
 ### 저장된 DB 번호 가지고 - 전체 데이터 GET
