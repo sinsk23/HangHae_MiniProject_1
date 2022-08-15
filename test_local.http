@@ -6,8 +6,8 @@ POST http://localhost:8001/api/signup
 Content-Type: application/json
 
 {  
-    "userId": "tester4",  
-    "nickname": "Tester4",  
+    "userId": "tester6",  
+    "nickname": "Tester6",  
     "password": "12345",  
     "confirm": "12345"
 }
