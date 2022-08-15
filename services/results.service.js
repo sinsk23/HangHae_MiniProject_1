@@ -2,6 +2,8 @@ const ResultsRepository = require("../repositories/results.repository");
 const CountryInfoRepository = require("../repositories/countryInfo.repository");
 const axios = require("axios");
 
+// process.env[NODE_TLS_REJECT_UNAUTHORIZED] = 0;
+
 class ResultsService {
   resultsRepository = new ResultsRepository();
   countryinfoRepository = new CountryInfoRepository();
@@ -126,11 +128,15 @@ class ResultsService {
       countryInfo.getMoreCountryInfoUrl
     );
 
-    // const getMoreVisitInfoUrl = await axios.get(
-    //   countryInfo.getMoreVisitInfoUrl
-    // );
+    const getMoreVisitInfoUrl = await axios.get(
+      countryInfo.getMoreVisitInfoUrl
+    );
 
-    // consol.log(getMoreVisitInfoUrl);
+    try {
+      var alarm_level = getMoreVisitInfoUrl.data.data[0].alarm_lvl;
+    } catch (e) {
+      var alarm_level = "";
+    }
 
     const returnData = {
       resultId,
@@ -139,7 +145,7 @@ class ResultsService {
       flag: getMoreCountryInfoUrl.data[0].flag,
       capital: getMoreCountryInfoUrl.data[0].capital[0],
       flagImgUrl: getMoreCountryInfoUrl.data[0].flags.png,
-      // getMoreVisitInfoUrl: countryInfo.getMoreVisitInfoUrl,
+      alarm_level,
     };
 
     return returnData;
