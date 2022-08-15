@@ -10,38 +10,6 @@ class CountryInfoRepository {
     return result;
   };
 
-  createCountryInfo = async (req, res, next) => {
-    const {
-      countryCode,
-      countryName,
-      countryDomain,
-      continent,
-      headText,
-      detailText,
-      recommendedId,
-      resultImageUrl,
-      officialWebpage,
-      getMoreCountryInfoUrl,
-      getMoreVisitInfoUrl,
-    } = req.body;
-
-    const allresult = await CountryInfo.create({
-      countryCode,
-      countryName,
-      countryDomain,
-      continent,
-      headText,
-      detailText,
-      recommendedId,
-      resultImageUrl,
-      officialWebpage,
-      getMoreCountryInfoUrl,
-      getMoreVisitInfoUrl,
-    });
-
-    return res.status(200).send(allresult);
-  };
-
   // app에서 바로 넣기
   createCountryInfoDirectFn = async (obj) => {
     const {

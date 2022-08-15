@@ -8,12 +8,8 @@ const authController = new AuthController();
 
 const router = express.Router();
 
-//마이페이지
-// router.get(
-//   "/",
-//   authController.authMiddleware,
-//   mypageController.bringMypage
-// );
+// 마이페이지의 정보 불러오기
+router.get("/", authController.authMiddleware, mypageController.bringMypage);
 
 //내 결과정보도 불러오기
 //(가장 마지막 추천 결과 GET)

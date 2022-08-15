@@ -1,6 +1,3 @@
-//마이페이지서비스
-// const MypageService = require("../services/mypage.service");
-
 //결과 저장소에서 함수 필요한거 쓰기
 const ResultsRepository = require("../repositories/results.repository");
 const ResultsService = require("../services/results.service");
@@ -9,18 +6,34 @@ const ResultsService = require("../services/results.service");
 const CountryinfoRepository = require("../repositories/countryInfo.repository");
 
 class MypageController {
-  //   mypageService = new MypageService();
   resultsRepository = new ResultsRepository();
-  ResultsService = new ResultsService();
+  resultsService = new ResultsService();
   countryinfoRepository = new CountryinfoRepository();
 
-  // bringMypage = async(req, res, next) =>{
-  // }
+  // 마이페이지에 넣을 나의 정보(아직은 userId, nickname 정도를 받아 응답하는 기능
+  bringMypage = async (req, res, next) => {
+    try {
+      const { userId, nickname } = res.locals.user;
+      console.log(userId, nickname);
+      const result = { userId, nickname };
+      return res.status(200).json(result);
+    } catch (err) {
+      return res.status(400).json({ err: err.message });
+    }
+  };
 
+  // 마이페이지에 넣을 나의 저장된 결과지 result 받아서 반환
   bringMyinfo = async (req, res, next) => {
     try {
-      const result = await this.ResultsService.resultPage();
-      return res.status(200).json(result);
+      const { _id } = await res.locals.user;
+      const myResult = await this.resultsRepository.getResultByUserIdNo(_id);
+
+      if (myResult) {
+        const result = await this.resultsService.resultPage(myResult.resultId);
+        return res.status(200).json(result);
+      } else {
+        return res.status(400).json({ message: "설문을 먼저 진행해주세요." });
+      }
     } catch (err) {
       return res.status(400).json({ err: err.message });
     }
