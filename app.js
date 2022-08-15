@@ -15,7 +15,12 @@ app.use(morgan("dev"));
 const http = Http.createServer(app);
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOption = {
+  origin: ["http://localhost:3000", "http://nodeapi.myspaceti.me:8002"],
+  credentials: true,
+};
+
+app.use(cors(corsOption));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
