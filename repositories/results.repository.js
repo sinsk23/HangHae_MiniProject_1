@@ -10,7 +10,10 @@ class ResultsRepository {
     return result;
   };
   getAllResults = async () => {
-    const result = await Result.findAll({ limit: 15 });
+    const result = await Result.findAll({
+      limit: 15,
+      order: [["createdAt", "DESC"]],
+    });
     return result;
   };
 
