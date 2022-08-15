@@ -9,9 +9,9 @@ const MypageRouter = require("./mypage.routes");
 
 const router = express.Router();
 
-router.use("/", AuthRouter);
 router.use("/results", ResultsRouter);
 router.use("/mypage", MypageRouter);
+router.use("/", AuthRouter);
 
 // countryInfo 저장하는 임시 API
 router.post(
