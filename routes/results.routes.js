@@ -8,6 +8,10 @@ const authController = new AuthController();
 
 const router = express.Router();
 
+//전체 결과 페이지
+router.get("/", resultsController.resultAllPage);
+
+
 // FE단에서 /submit answersArr 데이터 받고 데이터를 :reultId로 보내 받기
 
 //설문페이지
