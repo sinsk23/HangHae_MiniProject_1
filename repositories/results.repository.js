@@ -40,6 +40,8 @@ class ResultsRepository {
 
     return resultArr;
   };
+
+
 }
 
 module.exports = ResultsRepository;
