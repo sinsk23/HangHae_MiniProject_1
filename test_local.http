@@ -6,8 +6,8 @@ POST http://localhost:8001/api/signup
 Content-Type: application/json
 
 {  
-    "userId": "tester2",  
-    "nickname": "Tester2",  
+    "userId": "tester4",  
+    "nickname": "Tester4",  
     "password": "12345",  
     "confirm": "12345"
 }
@@ -17,7 +17,7 @@ POST http://localhost:8001/api/login
 Content-Type: application/json
 
 {  
-    "userId": "tester2",  
+    "userId": "tester4",  
     "password": "12345"
 }
 
@@ -26,8 +26,8 @@ POST http://localhost:8001/api/login/withsave
 Content-Type: application/json
 
 {  
-    "resultId": 1,  
-    "userId": "tester1",  
+    "resultId": 16,  
+    "userId": "tester4",  
     "password": "12345"
 }
 
@@ -39,12 +39,12 @@ Content-Type: application/json
 
 { 
   "answersArr" :   
-  ["자연", "고가", "아시아", "쇼핑", "모험"]
+  ["자연", "저가", "북미", "쇼핑", "휴양"]
 }
 
 
 ### 저장된 DB 번호 가지고 - 전체 데이터 GET
-GET http://localhost:8001/api/results/4
+GET http://localhost:8001/api/results/12
 Content-Type: application/json
 
 
