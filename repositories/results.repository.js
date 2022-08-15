@@ -9,6 +9,7 @@ class ResultsRepository {
     const result = await Result.findOne({ where: { resultId } });
     return result;
   };
+
   getAllResults = async () => {
     const result = await Result.findAll({
       limit: 15,

@@ -33,7 +33,7 @@ app.use("/api", routes);
 // sequelize.sync({ force: true });
 
 // // 2. db에 CountryInfo 초기화 하는 기능
-// const dataInitializer = require("./dataInitializer")
+// const dataInitializer = require("./dataInitializer");
 // dataInitializer();
 
 http.listen(port, () => {

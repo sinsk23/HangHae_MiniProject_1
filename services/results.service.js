@@ -126,6 +126,12 @@ class ResultsService {
       countryInfo.getMoreCountryInfoUrl
     );
 
+    // const getMoreVisitInfoUrl = await axios.get(
+    //   countryInfo.getMoreVisitInfoUrl
+    // );
+
+    // consol.log(getMoreVisitInfoUrl);
+
     const returnData = {
       resultId,
       recommendedCountryId,

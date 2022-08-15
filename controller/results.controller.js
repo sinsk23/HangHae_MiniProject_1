@@ -25,7 +25,6 @@ class ResultsController {
     try {
       // 지금까지 쌓여 있는 수 (최대 100개 불러옴 )
       const results = await this.resultsRepository.getAllResults();
-      console.log(results);
 
       const data = [];
       for (let i = 0; i < results.length; i++) {
