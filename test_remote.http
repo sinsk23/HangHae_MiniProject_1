@@ -2,7 +2,7 @@
 #############------ Auth 관련 API ----------------
 
 ### 회원가입
-POST http://localhost:8001/api/signup
+POST http://nodeapi.myspaceti.me:8002/api/signup
 Content-Type: application/json
 
 {  
@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ### 로그인
-POST http://localhost:8001/api/login
+POST http://nodeapi.myspaceti.me:8002/api/login
 Content-Type: application/json
 
 {  
@@ -21,17 +21,9 @@ Content-Type: application/json
     "password": "12345"
 }
 
-### 로그인
-POST http://nodeapi.myspaceti.me:8002/api/login
-Content-Type: application/json
-
-{  
-    "userId": "tester2",  
-    "password": "12345"
-}
 
 ### 설문결과 데이터 저장하면서 로그인
-POST http://localhost:8001/api/login/withsave
+POST http://nodeapi.myspaceti.me:8002/api/login/withsave
 Content-Type: application/json
 
 {  
@@ -43,17 +35,20 @@ Content-Type: application/json
 #############------ results 관련 API ----------------
 
 ### 설문 후 제출하고, 설문결과 저장 - 저장된 DB 번호를 리턴받음 
-POST http://localhost:8001/api/results/submit
+POST http://nodeapi.myspaceti.me:8002/api/results/submit
 Content-Type: application/json
 
 { 
   "answersArr" :   
-  ["자연", "고가", "아시아", "쇼핑", "휴양"]
+  ["도시", "고가", "아시아", "음식", "휴양"]
 }
+
+####
+
 
 
 ### 저장된 DB 번호 가지고 - 전체 데이터 GET
-GET http://localhost:8001/api/results/3
+GET http://nodeapi.myspaceti.me:8002/api/results/3
 Content-Type: application/json
 
 ### 저장된 DB 번호 가지고 - 전체 데이터 GET
@@ -66,11 +61,11 @@ Content-Type: application/json
 
 
 ### 마이페이지에 넣을 나의 정보(아직은 userId, nickname 정도를 받아 응답하는 기능
-GET http://localhost:8001/api/mypage
+GET http://nodeapi.myspaceti.me:8002/api/mypage
 Content-Type: application/json
 
 ### 마이페이지에 넣을 나의 저장된 결과지 result 받아서 반환
-GET http://localhost:8001/api/mypage/myanswers
+GET http://nodeapi.myspaceti.me:8002/api/mypage/myanswers
 Content-Type: application/json
 
 
@@ -80,7 +75,7 @@ Content-Type: application/json
 #############--------- Temporary countryInfo Uploader -------------
 
 ### countryInfo 저장하는 임시 링크 
-POST http://localhost:8001/api/temporary/createCountryInfo
+POST http://nodeapi.myspaceti.me:8002/api/temporary/createCountryInfo
 Content-Type: application/json
 
 {
