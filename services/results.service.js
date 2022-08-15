@@ -141,6 +141,20 @@ class ResultsService {
 
     return returnData;
   };
+
+  //전체 설문 결과 
+  resultAllPage = async()=>{
+    
+    const allPage = await this.countryinfoRepository.findAllCountry();
+    return allPage.map((page)=>{
+      return {...page};
+    });
+    
+    
+    
+  }
+  
+
 }
 
 module.exports = ResultsService;

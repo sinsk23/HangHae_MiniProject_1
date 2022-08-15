@@ -8,6 +8,22 @@ class ResultsController {
   resultsRepository = new ResultsRepository();
 
   countryinfoRepository = new CountryinfoRepository();
+//전체 결과 페이지 ,api/results/
+  resultAllPage = async (req, res, next)=>{
+    try{
+      
+      const resultAll = await this.resultsService.resultAllPage();
+      return res.status(200).json(resultAll);
+      
+      // const result = await CountryInfo.findAll({});
+      // return res.status(200).json(result);
+    }
+    catch (err) {
+      return res.status(400).json({ err: err.message });
+    }
+  }
+
+
 
   // Controller.submitPage : FE에서 설문 받아서 결과 저장하고, 저장된 resultId 반환
   submitPage = async (req, res, next) => {
