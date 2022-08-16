@@ -135,3 +135,35 @@ module.exports = router;
  *        400-1:
  *          description: "errorMessage"
  */
+
+/**
+ * @swagger
+ *  /api/results:
+ *    get:
+ *      tags:
+ *      - Results
+ *      description: 제출된 전체 결과지 정보 보기
+ *      operationId : submitedResults
+
+ *      responses:
+ *        200:
+ *          description: "응답되는 형태는 https://www.notion.so/bohyeonkim/api-results-67b56837a1c84c04a13712077d33bad1 여기에서 확인해주세요."
+ *        400-1:
+ *          description: "PossibleErrorMessage"
+ */
+
+/**
+ * @swagger
+ *  /api/results/countries:
+ *    get:
+ *      tags:
+ *      - Results
+ *      description: 제공하는 전체 나라정보 보기
+ *      operationId : getAllCountries
+
+ *      responses:
+ *        200:
+ *          description: "응답되는 형태는 https://www.notion.so/bohyeonkim/api-results-countries-5ee17524d9574e0f888a3389ec55105a 여기에서 확인해주세요."
+ *        400-1:
+ *          description: "PossibleErrorMessage"
+ */
