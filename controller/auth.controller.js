@@ -86,6 +86,8 @@ class AuthController {
       );
 
       // 헤더가 인증정보를 가지고 있으면 (로그인 되어 있으면,) 반려
+      console.log("req", req);
+      console.log("req.header", req.header);
       if (req.header.token) {
         return res
           .status(400)
@@ -132,6 +134,8 @@ class AuthController {
         await this.loginSchema.validateAsync(req.body);
 
       // 헤더가 인증정보를 가지고 있으면 (로그인 되어 있으면,) 반려
+      console.log("req", req);
+      console.log("req.header", req.header);
       if (req.header.token) {
         return res
           .status(400)
@@ -192,6 +196,8 @@ class AuthController {
     console.log("------ 🤔 Authorization Checking ------");
 
     try {
+      console.log("req", req);
+      console.log("req.header", req.header);
       const authorization = req.header.token;
       const [authType, authToken] = (authorization || "").split(" ");
 
@@ -234,7 +240,8 @@ class AuthController {
     // authMiddleware 메소드 입출입을 확인하기 위한 콘솔로그
     console.log("------ 🤔 Authorization Checking ------");
 
-    console.log(req.header.token);
+    console.log("req", req);
+    console.log("req.header", req.header);
     try {
       const authorization = req.header.token;
       const [authType, authToken] = (authorization || "").split(" ");
