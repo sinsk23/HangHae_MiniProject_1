@@ -100,21 +100,10 @@ class AuthController {
       );
 
       if (success) {
-        return res
-          .header(
-            "token",
-            `Bearer ${token}`
-            // {
-            // sameSite: "none",
-            // secure: true, // https, ssl 모드에서만
-            //   maxAge: 60000, // 1D
-            //   httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
-            // }
-          )
-          .status(200)
-          .send({
-            message: "로그인에 성공했습니다.",
-          });
+        return res.status(200).send({
+          token: `Bearer ${token}`,
+          message: "로그인에 성공했습니다.",
+        });
       } else {
         return res
           .status(400)
@@ -155,19 +144,10 @@ class AuthController {
         );
 
         if (success) {
-          return res
-            .header(
-              "token",
-              `Bearer ${token}`
-              // {
-              // sameSite: "none",
-              // secure: true, // https, ssl 모드에서만
-              //   maxAge: 60000, // 1D
-              //   httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
-              // }
-            )
-            .status(200)
-            .json({ message: "로그인이 완료되었으며, " + message });
+          return res.status(200).json({
+            token: `Bearer ${token}`,
+            message: "로그인이 완료되었으며, " + message,
+          });
         } else {
           return res
             .header("token", `Bearer ${token}`, {
