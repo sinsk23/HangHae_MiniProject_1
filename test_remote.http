@@ -6,8 +6,8 @@ POST http://nodeapi.myspaceti.me:8002/api/signup
 Content-Type: application/json
 
 {  
-    "userId": "tester5",  
-    "nickname": "Tester5",  
+    "userId": "tester9",  
+    "nickname": "Tester9",  
     "password": "12345",  
     "confirm": "12345"
 }
@@ -17,7 +17,7 @@ POST http://nodeapi.myspaceti.me:8002/api/login
 Content-Type: application/json
 
 {  
-    "userId": "tester1",  
+    "userId": "tester7",  
     "password": "12345"
 }
 

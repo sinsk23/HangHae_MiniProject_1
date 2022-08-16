@@ -99,8 +99,10 @@ class AuthController {
 
       if (success) {
         res.cookie("token", `Bearer ${token}`, {
-          maxAge: 60000, // 원활한 테스트를 위해 로그인 지속시간을 60초로 두었다.
-          httpOnly: true,
+          sameSite: "none",
+          secure: true, // https, ssl 모드에서만
+          maxAge: 60000, // 1D
+          httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
         });
         return res.status(200).send({
           message: "로그인에 성공했습니다.",
