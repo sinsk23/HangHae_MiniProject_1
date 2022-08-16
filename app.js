@@ -5,6 +5,11 @@ const cors = require("cors");
 const app = express();
 
 const Http = require("http");
+const http = Http.createServer(app);
+//https 
+// const https = require("https");
+// const fs = require("fs");//file system 
+
 const routes = require("./routes");
 const cookieParser = require("cookie-parser");
 
@@ -12,11 +17,12 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
-const http = Http.createServer(app);
+
+
 const port = process.env.PORT || 3000;
 
 const corsOption = {
-  origin: ["http://localhost:3000", "http://nodeapi.myspaceti.me:8002"],
+  origin: ["http://localhost:3000", "http://nodeapi.myspaceti.me:8002","http://seongkyu-dean.shop"],
   credentials: true,
 };
 
@@ -41,4 +47,19 @@ http.listen(port, () => {
   console.log(`Start listen Server: ${port}`);
 });
 
+
+
+// https.createServer({
+//   cert : fs.readFileSync('도메인 인증서 경로'),
+//   key : fs.readFileSync('도메인 비밀키 경로'),
+//   ca : [
+//     fs.readFileSync('상위 인증서 경로'),
+//     fs.readFileSync('상위 인증서 경로'),
+//   ],
+// }).listen(port, ()=>{
+//   console.log(`Start listen Server: ${port}`);
+// })
+
 module.exports = http;
+
+// module.exports = https;
