@@ -18,7 +18,7 @@ class MypageController {
       const result = { userId, nickname };
       return res.status(200).json(result);
     } catch (err) {
-      return res.status(400).json({ err: err.message });
+      return res.json({ statusCode: 400, message: err.message });
     }
   };
 
@@ -32,10 +32,13 @@ class MypageController {
         const result = await this.resultsService.resultPage(myResult.resultId);
         return res.status(200).json(result);
       } else {
-        return res.status(400).json({ message: "설문을 먼저 진행해주세요." });
+        return res.json({
+          statusCode: 400,
+          message: "설문을 먼저 진행해주세요.",
+        });
       }
     } catch (err) {
-      return res.status(400).json({ err: err.message });
+      return res.json({ statusCode: 400, message: err.message });
     }
   };
 }

@@ -17,7 +17,7 @@ class ResultsController {
       // const result = await CountryInfo.findAll({});
       // return res.status(200).json(result);
     } catch (err) {
-      return res.status(400).json({ err: err.message });
+      return res.json({ statusCode: 400, message: err.message });
     }
   };
 
@@ -36,7 +36,7 @@ class ResultsController {
 
       return res.status(200).json(data);
     } catch (err) {
-      return res.status(400).json({ err: err.message });
+      return res.json({ statusCode: 400, message: err.message });
     }
   };
 
@@ -57,7 +57,7 @@ class ResultsController {
 
       return res.status(201).json({ resultId });
     } catch (err) {
-      return res.status(400).json({ err: err.message });
+      return res.json({ statusCode: 400, message: err.message });
     }
   };
 
@@ -68,7 +68,7 @@ class ResultsController {
       const result = await this.resultsService.resultPage(resultId);
       return res.status(200).json(result);
     } catch (err) {
-      return res.status(400).json({ err: err.message });
+      return res.json({ statusCode: 400, message: err.message });
     }
   };
 }
