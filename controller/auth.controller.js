@@ -30,27 +30,27 @@ class AuthController {
       // 헤더가 인증정보를 가지고 있으면 (로그인 되어 있으면,)
       if (req.cookies.token) {
         console.log("이미 로그인이 되어있습니다.");
-        res.status(400).send({
-          errorMessage: "이미 로그인이 되어있습니다.",
+        return res.send({
+          statusCode: 400,
+          message: "이미 로그인이 되어있습니다.",
         });
-        return;
       }
 
       // ---- 추가적인 유효성 검사 (validation) ------
       // 입력된 패스워드 2개가 같은지 확인
       if (password !== confirm) {
-        console.log("입력하신 두개의 비밀번호가 다릅니다");
-        res.status(400).send({
-          errorMessage: "입력하신 두개의 비밀번호가 다릅니다",
+        return res.send({
+          statusCode: 400,
+          message: "입력하신 두개의 비밀번호가 다릅니다.",
         });
-        return;
       }
 
       // 패스워드가 닉네임을 포함하는지 확인
       if (password.includes(userId)) {
         console.log("비밀번호는 ID를 포함할 수 없습니다.");
-        return res.status(400).send({
-          errorMessage: "비밀번호는 ID를 포함할 수 없습니다. ",
+        return res.send({
+          statusCode: 400,
+          message: "비밀번호는 ID를 포함할 수 없습니다.",
         });
       }
       // ---- 추가적인 유효성 검사 (validation) End ------
@@ -63,18 +63,21 @@ class AuthController {
       );
 
       if (success) {
-        return res.status(200).json({ message });
+        return res.status(200).json({ statusCode: 200, message });
       } else {
-        return res.status(400).json({ message });
+        return res.send({
+          statusCode: 400,
+          message,
+        });
       }
     } catch (error) {
       const message = `${req.method} ${req.originalUrl} : ${error.message}`;
       console.log(message + "입력하신 아이디와 패스워드를 확인해주세요.");
-      res.status(400).send({
-        errorMessage: message + "입력하신 아이디와 패스워드를 확인해주세요.",
+      return res.send({
+        statusCode: 400,
+        message: message + "입력하신 아이디와 패스워드를 확인해주세요.",
       });
     }
-    return res.send("This is Create Account Page");
   };
 
   // 로그인만 진행할 때,
@@ -86,12 +89,13 @@ class AuthController {
       );
 
       // 헤더가 인증정보를 가지고 있으면 (로그인 되어 있으면,) 반려
-      console.log("req", req);
-      console.log("req.header", req.header);
+      // console.log("req", req);
+      // console.log("req.headers.token :", req.headers.token);
       if (req.header.token) {
-        return res
-          .status(400)
-          .send({ errorMessage: "이미 로그인이 되어있습니다." });
+        return res.send({
+          statusCode: 400,
+          message: "이미 로그인이 되어있습니다.",
+        });
       }
 
       const { success, token } = await this.authService.getToken(
@@ -100,18 +104,24 @@ class AuthController {
       );
 
       if (success) {
-        return res.status(200).send({
-          token: `Bearer ${token}`,
-          message: "로그인에 성공했습니다.",
-        });
-      } else {
+        console.log("CASE4");
         return res
-          .status(400)
-          .json({ message: "입력하신 아이디 또는 패스워드를 확인해주세요." });
+          .status(200)
+          .send({
+            statusCode: 200,
+            token: `Bearer ${token}`,
+            message: "로그인에 성공했습니다.",
+          })
+          .end();
+      } else {
+        return res.send({
+          statusCode: 400,
+          message: "입력하신 아이디 또는 패스워드를 확인해주세요.",
+        });
       }
     } catch (error) {
       const message = `${req.method} ${req.originalUrl} : ${error.message}`;
-      res.status(400).send({ message });
+      return res.send({ statusCode: 400, message });
     }
   };
 
@@ -126,9 +136,10 @@ class AuthController {
       console.log("req", req);
       console.log("req.header", req.header);
       if (req.header.token) {
-        return res
-          .status(400)
-          .send({ errorMessage: "이미 로그인이 되어있습니다." });
+        return res.send({
+          statusCode: 400,
+          message: message + "이미 로그인이 되어있습니다.",
+        });
       }
 
       const { success, token } = await this.authService.getToken(
@@ -145,6 +156,7 @@ class AuthController {
 
         if (success) {
           return res.status(200).json({
+            statusCode: 200,
             token: `Bearer ${token}`,
             message: "로그인이 완료되었으며, " + message,
           });
@@ -156,17 +168,23 @@ class AuthController {
               maxAge: 60000, // 1D
               httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
             })
-            .status(400)
-            .json({ message: "로그인이 완료되었으나, " + message });
+            .json({
+              statusCode: 400,
+              message: "로그인이 완료되었으나, " + message,
+            });
         }
       } else {
-        return res
-          .status(400)
-          .json({ message: "입력하신 아이디 또는 패스워드를 확인해주세요." });
+        return res.send({
+          statusCode: 400,
+          message: "입력하신 아이디 또는 패스워드를 확인해주세요.",
+        });
       }
     } catch (error) {
       const message = `${req.method} ${req.originalUrl} : ${error.message}`;
-      res.status(400).send({ message });
+      return res.send({
+        statusCode: 400,
+        message,
+      });
     }
   };
 
@@ -177,24 +195,24 @@ class AuthController {
 
     try {
       console.log("req", req);
-      console.log("req.header", req.header);
+      console.log("req.header", req.headers.token);
       const authorization = req.header.token;
       const [authType, authToken] = (authorization || "").split(" ");
 
       // 전달받은 인증값이 Bearer로 시작하지 않으면 인증 실패
       if (authType !== "Bearer") {
-        res.status(401).send({
-          errorMessage: "로그인 후 사용해주세요",
+        return res.send({
+          statusCode: 400,
+          message: "로그인 후 사용해주세요.",
         });
-        return;
       }
       jwt.verify(authToken, MY_SECRET_KEY, async (error, decoded) => {
         // 인증 결과 에러가 나타나면 클라이언트와 서버에 모두 에러를 던지고 미들웨어 종료
         if (error) {
-          res.status(401).send({
-            errorMessage: "이용에 문제가 있습니다. 관리자에게 문의해주세요.",
+          return res.send({
+            statusCode: 400,
+            message: "이용에 문제가 있습니다. 관리자에게 문의해주세요.",
           });
-          return;
         }
 
         let user = await this.userRepository.getUserbyUserId(decoded.userId);
@@ -208,10 +226,10 @@ class AuthController {
 
       // 에러 생기면 에러메세지
     } catch (e) {
-      res.status(401).send({
-        errorMessage: "로그인 후 사용하세요",
+      return res.send({
+        statusCode: 400,
+        message: "로그인 후 사용하세요",
       });
-      return;
     }
   };
 
@@ -237,10 +255,10 @@ class AuthController {
       jwt.verify(authToken, MY_SECRET_KEY, async (error, decoded) => {
         // 인증 결과 에러가 나타나면 클라이언트와 서버에 모두 에러를 던지고 미들웨어 종료
         if (error) {
-          res.status(401).send({
-            errorMessage: "이용에 문제가 있습니다. 관리자에게 문의해주세요.",
+          return res.send({
+            statusCode: 401,
+            message: "이용에 문제가 있습니다. 관리자에게 문의해주세요.",
           });
-          return;
         }
 
         let user = await this.userRepository.getUserbyUserId(decoded.userId);
@@ -253,10 +271,10 @@ class AuthController {
 
       // 에러 생기면 에러메세지
     } catch (e) {
-      res.status(401).send({
-        errorMessage: "로그인 후 사용하세요",
+      return res.send({
+        statusCode: 401,
+        message: "로그인 후 사용하세요.",
       });
-      return;
     }
   };
 }
