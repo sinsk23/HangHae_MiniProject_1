@@ -86,7 +86,7 @@ class AuthController {
       );
 
       // 헤더가 인증정보를 가지고 있으면 (로그인 되어 있으면,) 반려
-      if (req.cookies.token) {
+      if (req.header.token) {
         return res
           .status(400)
           .send({ errorMessage: "이미 로그인이 되어있습니다." });
@@ -98,15 +98,21 @@ class AuthController {
       );
 
       if (success) {
-        res.cookie("token", `Bearer ${token}`, {
-          sameSite: "none",
-          secure: true, // https, ssl 모드에서만
-          maxAge: 60000, // 1D
-          httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
-        });
-        return res.status(200).send({
-          message: "로그인에 성공했습니다.",
-        });
+        return res
+          .header(
+            "token",
+            `Bearer ${token}`
+            // {
+            // sameSite: "none",
+            // secure: true, // https, ssl 모드에서만
+            //   maxAge: 60000, // 1D
+            //   httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
+            // }
+          )
+          .status(200)
+          .send({
+            message: "로그인에 성공했습니다.",
+          });
       } else {
         return res
           .status(400)
@@ -126,7 +132,7 @@ class AuthController {
         await this.loginSchema.validateAsync(req.body);
 
       // 헤더가 인증정보를 가지고 있으면 (로그인 되어 있으면,) 반려
-      if (req.cookies.token) {
+      if (req.header.token) {
         return res
           .status(400)
           .send({ errorMessage: "이미 로그인이 되어있습니다." });
@@ -138,11 +144,6 @@ class AuthController {
       );
 
       if (success) {
-        res.cookie("token", `Bearer ${token}`, {
-          maxAge: 30000, // 원활한 테스트를 위해 로그인 지속시간을 30초로 두었다.
-          httpOnly: true,
-        });
-
         // 결과에 userId 기록
         const { success, message } = await this.authService.leaveUserOnResult(
           userId,
@@ -151,10 +152,26 @@ class AuthController {
 
         if (success) {
           return res
+            .header(
+              "token",
+              `Bearer ${token}`
+              // {
+              // sameSite: "none",
+              // secure: true, // https, ssl 모드에서만
+              //   maxAge: 60000, // 1D
+              //   httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
+              // }
+            )
             .status(200)
             .json({ message: "로그인이 완료되었으며, " + message });
         } else {
           return res
+            .header("token", `Bearer ${token}`, {
+              sameSite: "none",
+              secure: true, // https, ssl 모드에서만
+              maxAge: 60000, // 1D
+              httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
+            })
             .status(400)
             .json({ message: "로그인이 완료되었으나, " + message });
         }
@@ -175,7 +192,7 @@ class AuthController {
     console.log("------ 🤔 Authorization Checking ------");
 
     try {
-      const authorization = req.cookies.token;
+      const authorization = req.header.token;
       const [authType, authToken] = (authorization || "").split(" ");
 
       // 전달받은 인증값이 Bearer로 시작하지 않으면 인증 실패
@@ -217,9 +234,9 @@ class AuthController {
     // authMiddleware 메소드 입출입을 확인하기 위한 콘솔로그
     console.log("------ 🤔 Authorization Checking ------");
 
-    console.log(req.cookies.token);
+    console.log(req.header.token);
     try {
-      const authorization = req.cookies.token;
+      const authorization = req.header.token;
       const [authType, authToken] = (authorization || "").split(" ");
 
       // 전달받은 인증값이 Bearer로 시작하지 않으면 인증 실패
