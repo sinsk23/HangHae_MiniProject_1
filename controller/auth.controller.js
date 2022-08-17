@@ -163,17 +163,11 @@ class AuthController {
             message: "로그인이 완료되었으며, " + message,
           });
         } else {
-          return res
-            .header("token", `Bearer ${token}`, {
-              sameSite: "none",
-              secure: true, // https, ssl 모드에서만
-              maxAge: 60000, // 1D
-              httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
-            })
-            .json({
-              statusCode: 400,
-              message: "로그인이 완료되었으나, " + message,
-            });
+          return res.json({
+            statusCode: 400,
+            token: `Bearer ${token}`,
+            message: "로그인이 완료되었으나, " + message,
+          });
         }
       } else {
         return res.send({
