@@ -55,7 +55,14 @@ class AuthService {
 
   leaveUserOnResult = async (userId, resultId) => {
     // resultRepository에서 결과데이터를 찾아보고,
-    const result = await this.resultRepository.getResultById(resultId);
+
+    let result;
+
+    if (!resultId) {
+      result = undefined;
+    } else {
+      result = await this.resultRepository.getResultById(resultId);
+    }
 
     // 찾아봤는데 DB에 그런 result가 없으면 반려
     if (!result) {
