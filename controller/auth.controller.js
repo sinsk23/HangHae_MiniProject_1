@@ -75,7 +75,8 @@ class AuthController {
       console.log(message + "입력하신 아이디와 패스워드를 확인해주세요.");
       return res.send({
         statusCode: 400,
-        message: message + "!입력하신 아이디와 패스워드를 확인해주세요.",
+        errReason: message,
+        message: "입력하신 아이디와 패스워드를 확인해주세요.",
       });
     }
   };
@@ -138,7 +139,8 @@ class AuthController {
       if (req.header.token) {
         return res.send({
           statusCode: 400,
-          message: message + "!이미 로그인이 되어있습니다.",
+          errReason: message,
+          message: "이미 로그인이 되어있습니다.",
         });
       }
 
