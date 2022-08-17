@@ -2,7 +2,7 @@
 #############------ Auth 관련 API ----------------
 
 ### 회원가입
-POST http://localhost:8001/api/signup
+POST http://localhost:8002/api/signup
 Content-Type: application/json
 
 {  
@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ### 로그인
-POST http://localhost:8001/api/login
+POST http://localhost:8002/api/login
 Content-Type: application/json
 
 {  
@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 ### 설문결과 데이터 저장하면서 로그인
-POST http://localhost:8001/api/login/withsave
+POST http://localhost:8002/api/login/withsave
 Content-Type: application/json
 
 {  
@@ -43,7 +43,7 @@ Content-Type: application/json
 #############------ results 관련 API ----------------
 
 ### 설문 후 제출하고, 설문결과 저장 - 저장된 DB 번호를 리턴받음 
-POST http://localhost:8001/api/results/submit
+POST http://localhost:8002/api/results/submit
 Content-Type: application/json
 
 { 
@@ -52,18 +52,18 @@ Content-Type: application/json
 }
 
 ### 저장된 결과 Id 가지고 - 나라정보 불러오기 
-GET http://localhost:8001/api/results/10
+GET http://localhost:8002/api/results/10
 Content-Type: application/json
 
 
 ### -------Additional 
 
 ### 저장된 모든 결과데이터 불러오기 (최대 15개)
-GET http://localhost:8001/api/results
+GET http://localhost:8002/api/results
 Content-Type: application/json
 
 ### 저장된 모든 나라 정보 불러오기
-GET http://localhost:8001/api/results/countries
+GET http://localhost:8002/api/results/countries
 Content-Type: application/json
 
 
@@ -72,12 +72,14 @@ Content-Type: application/json
 
 
 ### 마이페이지에 넣을 나의 정보(아직은 userId, nickname 정도를 받아 응답하는 기능
-GET http://localhost:8001/api/mypage
+GET http://localhost:8002/api/mypage
 Content-Type: application/json
+token : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0ZXIzIiwibmlja25hbWUiOiJURVNURVIzIiwidXNlcklkTm8iOjQsImlhdCI6MTY2MDczMjQ2NX0.CA5iy0bdwW2-Dr9y2qV6fuYn4jAzv-nIMUkK_xf_Jjk
 
 ### 마이페이지에 넣을 나의 저장된 결과지 result 받아서 반환
-GET http://localhost:8001/api/mypage/myanswers
+GET http://localhost:8002/api/mypage/myanswers
 Content-Type: application/json
+token : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0ZXIzIiwibmlja25hbWUiOiJURVNURVIzIiwidXNlcklkTm8iOjQsImlhdCI6MTY2MDczMjQ2NX0.CA5iy0bdwW2-Dr9y2qV6fuYn4jAzv-nIMUkK_xf_Jjk
 
 
 
@@ -86,7 +88,7 @@ Content-Type: application/json
 #############--------- Temporary countryInfo Uploader -------------
 
 ### countryInfo 저장하는 임시 링크 
-POST http://localhost:8001/api/temporary/createCountryInfo
+POST http://localhost:8002/api/temporary/createCountryInfo
 Content-Type: application/json
 
 {
