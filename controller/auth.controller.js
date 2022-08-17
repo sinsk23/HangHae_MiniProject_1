@@ -107,6 +107,12 @@ class AuthController {
       if (success) {
         console.log("CASE4");
         return res
+          .cookie("token", `Bearer ${token}`, {
+            sameSite: "none",
+            secure: true, // https, ssl 모드에서만
+            maxAge: 60000, // 1D
+            httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
+          })
           .status(200)
           .send({
             statusCode: 200,
@@ -157,17 +163,32 @@ class AuthController {
         );
 
         if (success) {
-          return res.status(200).json({
-            statusCode: 200,
-            token: `Bearer ${token}`,
-            message: "로그인이 완료되었으며, " + message,
-          });
+          return res
+            .cookie("token", `Bearer ${token}`, {
+              sameSite: "none",
+              secure: true, // https, ssl 모드에서만
+              maxAge: 60000, // 1D
+              httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
+            })
+            .status(200)
+            .json({
+              statusCode: 200,
+              token: `Bearer ${token}`,
+              message: "로그인이 완료되었으며, " + message,
+            });
         } else {
-          return res.json({
-            statusCode: 400,
-            token: `Bearer ${token}`,
-            message: "로그인이 완료되었으나, " + message,
-          });
+          return res
+            .cookie("token", `Bearer ${token}`, {
+              sameSite: "none",
+              secure: true, // https, ssl 모드에서만
+              maxAge: 60000, // 1D
+              httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
+            })
+            .json({
+              statusCode: 400,
+              token: `Bearer ${token}`,
+              message: "로그인이 완료되었으나, " + message,
+            });
         }
       } else {
         return res.send({

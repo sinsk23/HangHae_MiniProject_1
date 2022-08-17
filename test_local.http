@@ -21,6 +21,15 @@ Content-Type: application/json
     "password": "12345"
 }
 
+### 로그인
+POST https://localhost/api/login
+Content-Type: application/json
+
+{  
+    "userId": "tester7",  
+    "password": "12345"
+}
+
 ### 설문결과 데이터 저장하면서 로그인
 POST http://localhost:8001/api/login/withsave
 Content-Type: application/json

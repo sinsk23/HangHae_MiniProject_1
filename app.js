@@ -23,7 +23,8 @@ app.use(morgan("dev"));
 const http = Http.createServer(app);
 const https = Https.createServer(options, app);
 
-const port = process.env.PORT || 3000;
+const http_port = process.env.HTTP_PORT || 3000;
+const https_port = process.env.HTTPS_PORT || 443;
 
 const corsOption = {
   origin: ["http://localhost:3000", "http://nodeapi.myspaceti.me:8002"],
@@ -47,11 +48,11 @@ app.use("/api", routes);
 // const dataInitializer = require("./dataInitializer");
 // dataInitializer();
 
-http.listen(port, () => {
-  console.log(`Start listen Server: ${port}`);
+http.listen(http_port, () => {
+  console.log(`Start listen Server: ${http_port}`);
 });
-https.listen(443, () => {
-  console.log(`Start listen Server: 443`);
+https.listen(https_port, () => {
+  console.log(`Start listen Server: ${https_port}`);
 });
 
 module.exports = app;
