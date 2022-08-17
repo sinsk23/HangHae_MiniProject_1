@@ -129,7 +129,7 @@ class AuthController {
           .end();
       } else {
         return res.send({
-          statusCode: 400,
+          statusCode: 401,
           message: "입력하신 아이디 또는 패스워드를 확인해주세요.",
         });
       }
@@ -206,7 +206,7 @@ class AuthController {
         }
       } else {
         return res.send({
-          statusCode: 400,
+          statusCode: 401,
           message: "입력하신 아이디 또는 패스워드를 확인해주세요.",
         });
       }
