@@ -107,7 +107,6 @@ class AuthController {
       );
 
       let { _id } = await this.userRepository.getUserbyUserId(userId);
-
       let results = await this.resultsRepository.getResultByUserIdNo(_id);
 
       console.log(results?.resultId);
@@ -164,7 +163,6 @@ class AuthController {
       );
 
       let { _id } = await this.userRepository.getUserbyUserId(userId);
-
       let results = await this.resultsRepository.getResultByUserIdNo(_id);
 
       console.log(results?.resultId);
@@ -188,7 +186,7 @@ class AuthController {
             .json({
               statusCode: 200,
               token: `Bearer ${token}`,
-              resultId: results?.resultId || resultId,
+              resultId: resultId || results?.resultId,
               message: "로그인이 완료되었으며, " + message,
             });
         } else {

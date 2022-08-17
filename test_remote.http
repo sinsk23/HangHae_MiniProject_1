@@ -27,8 +27,7 @@ POST http://nodeapi.myspaceti.me:8002/api/login/withsave
 Content-Type: application/json
 
 {  
-    "resultId": 17,  
-    "userId": "tester5",  
+    "userId": "tester7",  
     "password": "12345"
 }
 
