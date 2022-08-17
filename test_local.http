@@ -17,7 +17,7 @@ POST http://localhost:8002/api/login
 Content-Type: application/json
 
 {  
-    "userId": "tester3",  
+    "userId": "tester8",  
     "password": "12345"
 }
 
@@ -35,8 +35,8 @@ POST http://localhost:8002/api/login/withsave
 Content-Type: application/json
 
 {  
-    "resultId": 16,  
-    "userId": "tester4",  
+    "resultId": 55,  
+    "userId": "tester8",  
     "password": "12345"
 }
 

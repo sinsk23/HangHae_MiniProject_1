@@ -15,6 +15,7 @@ class ResultsRepository {
       limit: 15,
       order: [["createdAt", "DESC"]],
     });
+
     return result;
   };
 

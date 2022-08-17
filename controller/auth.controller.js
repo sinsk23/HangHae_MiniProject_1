@@ -1,5 +1,6 @@
 const AuthService = require("../services/auth.service");
 const UserRepository = require("../repositories/users.repository");
+const ResultsRepository = require("../repositories/results.repository");
 const MY_SECRET_KEY = process.env.MY_SECRET_KEY;
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
@@ -7,6 +8,7 @@ const Joi = require("joi");
 class AuthController {
   authService = new AuthService();
   userRepository = new UserRepository();
+  resultsRepository = new ResultsRepository();
 
   signupSchema = Joi.object({
     userId: Joi.string().min(6).max(12).alphanum().required(),
@@ -104,8 +106,13 @@ class AuthController {
         password
       );
 
+      let { _id } = await this.userRepository.getUserbyUserId(userId);
+
+      let results = await this.resultsRepository.getResultByUserIdNo(_id);
+
+      console.log(results?.resultId);
+
       if (success) {
-        console.log("CASE4");
         return res
           .cookie("token", `Bearer ${token}`, {
             sameSite: "none",
@@ -116,6 +123,7 @@ class AuthController {
           .status(200)
           .send({
             statusCode: 200,
+            resultId: results?.resultId || "",
             token: `Bearer ${token}`,
             message: "로그인에 성공했습니다.",
           })
