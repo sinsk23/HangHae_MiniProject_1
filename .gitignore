@@ -1,6 +1,7 @@
 
 legacy_middlewares
 sort_data
+ssl
 
 # Logs
 logs

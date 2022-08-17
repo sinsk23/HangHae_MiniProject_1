@@ -5,14 +5,24 @@ const cors = require("cors");
 const app = express();
 
 const Http = require("http");
+const Https = require("https");
 const routes = require("./routes");
 const cookieParser = require("cookie-parser");
+
+const fs = require("fs");
+const options = {
+  key: fs.readFileSync("./ssl/www_myspaceti.me.key"),
+  cert: fs.readFileSync("./ssl/www_myspaceti.me_cert.crt"),
+  ca: fs.readFileSync("./ssl/www_myspaceti.me_chain_cert.crt"),
+};
 
 // 로그(log)를 관리하기 위한 서드파티 라이브러리
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
 const http = Http.createServer(app);
+const https = Https.createServer(options, app);
+
 const port = process.env.PORT || 3000;
 
 const corsOption = {
@@ -40,5 +50,8 @@ app.use("/api", routes);
 http.listen(port, () => {
   console.log(`Start listen Server: ${port}`);
 });
+https.listen(443, () => {
+  console.log(`Start listen Server: 443`);
+});
 
-module.exports = http;
+module.exports = app;
