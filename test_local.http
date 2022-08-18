@@ -31,19 +31,18 @@ Content-Type: application/json
 }
 
 ### 설문결과 데이터 저장하면서 로그인
-POST https://localhost:8002/api/login/withsave
+POST https://www.myspaceti.me/api/login/withsave
 Content-Type: application/json
 
 {  
-    "resultId": 57,  
-    "userId": "tester9",  
+    "userId": "testerjy2",  
     "password": "12345"
 }
 
 #############------ results 관련 API ----------------
 
 ### 설문 후 제출하고, 설문결과 저장 - 저장된 DB 번호를 리턴받음 
-POST http://localhost:8002/api/results/submit
+POST https://localhost/api/results/submit
 Content-Type: application/json
 
 { 

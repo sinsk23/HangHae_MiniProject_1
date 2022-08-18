@@ -204,7 +204,7 @@ class AuthController {
             .cookie("token", `Bearer ${token}`, {
               sameSite: "none",
               secure: true, // https, ssl 모드에서만
-              maxAge: 60000, // 1D
+              maxAge: 60000, // 1분
               httpOnly: true, // javascript 로 cookie에 접근하지 못하게 한다.
             })
             .json({
