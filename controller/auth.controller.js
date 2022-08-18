@@ -172,9 +172,10 @@ class AuthController {
       );
 
       let { _id } = await this.userRepository.getUserbyUserId(userId);
+
       let results = await this.resultsRepository.getResultByUserIdNo(_id);
 
-      console.log(results?.resultId);
+      console.log("resultIdFromDB:", results?.resultId);
 
       if (success) {
         // 결과에 userId 기록
