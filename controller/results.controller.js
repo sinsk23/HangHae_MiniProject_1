@@ -1,13 +1,16 @@
 const ResultsService = require("../services/results.service");
 const ResultsRepository = require("../repositories/results.repository");
-
 const CountryinfoRepository = require("../repositories/countryInfo.repository");
+const UserRepository = require("../repositories/users.repository");
+const jwt = require("jsonwebtoken");
+const MY_SECRET_KEY = process.env.MY_SECRET_KEY;
 
 class ResultsController {
   resultsService = new ResultsService();
   resultsRepository = new ResultsRepository();
-
   countryinfoRepository = new CountryinfoRepository();
+  userRepository = new UserRepository();
+
   //전체 결과 페이지 ,api/results/
   getAllCountries = async (req, res, next) => {
     try {
@@ -44,6 +47,20 @@ class ResultsController {
   submitPage = async (req, res, next) => {
     try {
       // 설문결과 어레이를 받아서
+
+      console.log("req.cookies.token:", req.cookies.token);
+      if (req.cookies.token) {
+        const authorization = req.cookies.token;
+        console.log("authorization:", authorization);
+        const [authType, authToken] = (authorization || "").split(" ");
+        jwt.verify(authToken, MY_SECRET_KEY, async (error, decoded) => {
+          let user = await this.userRepository.getUserbyUserId(decoded.userId);
+          console.log(
+            "로그인된 쿠키 체크 res.cookies.token -> decoded.user의 userId는? 🤔!! :",
+            user.userId
+          );
+        });
+      }
 
       const { user } = await res.locals;
       const { answersArr } = req.body;

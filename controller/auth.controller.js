@@ -147,13 +147,22 @@ class AuthController {
         await this.loginSchema.validateAsync(req.body);
 
       // 헤더가 인증정보를 가지고 있으면 (로그인 되어 있으면,) 반려
-      console.log("req", req);
       console.log("req.header", req.header);
       if (req.header.token) {
         return res.send({
           statusCode: 400,
           errReason: message,
           message: "이미 로그인이 되어있습니다.",
+        });
+      }
+
+      if (req.cookies.token) {
+        const authorization = req.cookies.token;
+        console.log("authorization:", authorization);
+        const [authType, authToken] = (authorization || "").split(" ");
+        jwt.verify(authToken, MY_SECRET_KEY, async (error, decoded) => {
+          let user = await this.userRepository.getUserbyUserId(decoded.userId);
+          console.log("쿠키체크:", user);
         });
       }
 
